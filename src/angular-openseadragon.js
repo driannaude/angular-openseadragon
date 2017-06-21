@@ -1,7 +1,7 @@
 "use strict";
 (function () {
   var module = angular.module("ui.openseadragon", []);
-  module.directive("seadragon", [function () {
+  module.directive("seadragon", ['$timeout', function ($timeout) {
     return {
       restrict: "E",
       scope: {
@@ -38,37 +38,33 @@
           scope.osd = OpenSeadragon(opts);
           //Create a wrapper
           var wrapper = {
-            setFullScreen: function (fullScreen) {
-              scope.osd.setFullScreen(fullScreen);
-            },
-            forceRedraw: function () {
-              scope.osd.forceRedraw();
-            },
             mouse: {
               position: null,
               imageCoord: null,
               viewportCoord: null,
             },
             zoom: 0,
-            viewport: {
-              bounds: null,
-              center: null,
-              rotation: 0,
-              zoom: 0,
-            }
+            viewport: {}
           }
+
+          for(var key in scope.osd) {
+            wrapper[key] = scope.osd[key];
+          }
+
           if (attrs.name) {
             //Make the OSD available to parent scope
             scope.$parent[attrs.name] = wrapper;
             //Define event handlers
             zoomHandler = function (e) {
-              scope.$apply(function () {
-                wrapper.zoom = e.zoom;
-              });
+              $timeout(function() {
+                scope.$apply(function () {
+                  wrapper.zoom = e.zoom;
+                });
+              },0);
             }
             updateViewportHandler = function (e) {
               scope.$apply(function () {
-                wrapper.viewport = {
+                wrapper.viewportInfo = {
                   bounds: scope.osd.viewport.getBounds(false),
                   center: scope.osd.viewport.getCenter(false),
                   rotation: scope.osd.viewport.getRotation(),

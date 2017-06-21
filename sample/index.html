@@ -25,8 +25,8 @@
             <div class="panel-body">
               <ul class="list-unstyled">
                 <li>Zoom level : {{mysd.zoom}}</li>
-                <li>Viewport bounds : {{mysd.viewport.bounds}}</li>
-                <li>Mouse image coords : {{mysd.viewport.imageCoord}}</li>
+                <li>Viewport bounds : {{mysd.viewportInfo.bounds}}</li>
+                <li>Mouse image coords : {{mysd.mouse.imageCoord}}</li>
               </ul>
             </div>
             <div class="panel-footer">
@@ -34,6 +34,12 @@
                       ng-click="mysd.setFullScreen(true)">Full screen</button>
               <button class="btn btn-default"
                       ng-click="mysd.forceRedraw(true)">Force Redraw</button>
+              <input name="zoomByAmount"
+                     ng-init="zoomByAmount=5"
+                     ng-model="zoomByAmount"
+                     type="number" />
+              <button class="btn btn-default"
+                      ng-click="mysd.viewport.zoomTo(zoomByAmount)">Zoom To</button>
             </div>
           </div>
         </div>
