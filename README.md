@@ -39,6 +39,7 @@ tilesource | Overrides the `tileSources` of the options. (raw value, does not ev
 You also have access to the entire underlying `Viewer` API which can be [found here](http://openseadragon.github.io/docs/OpenSeadragon.Viewer.html)
 
 Common methods/values that are attached include:
+
 Name | Description
 ---- | -----------
 [setFullScreen(Bool)](http://openseadragon.github.io/docs/OpenSeadragon.Viewer.html#setFullScreen) | Make canvas go to full screen
@@ -51,6 +52,7 @@ __* The instance automagically gets destroyed when the scope is destroyed__
 Exposing the OSD `Viewer` API also gives you access to helpful programmatic methods to pan/zoom/control the Viewport as exposed via `${name}.viewport`:
 
 Common methods/values that are attached include:
+
 Name | Description
 ---- | -----------
 [getZoom()](http://openseadragon.github.io/docs/OpenSeadragon.Viewport.html#getZoom) | Gets the current zoom level*
