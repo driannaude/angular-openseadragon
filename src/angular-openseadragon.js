@@ -7,8 +7,8 @@
             scope: {
                 options: "=",
                 name: "=",
-                tilesource: "@",
-                prefixUrl: "@"
+                tilesource: "=",
+                prefixUrl: "="
             },
             controller: ["$scope", function ($scope) {
                 $scope.osd = null;
@@ -29,7 +29,15 @@
 
                 //Create the viewer
                 scope.osd = OpenSeadragon(opts);
-
+                var optionsWatcher = scope.$watch('options', function(newval) {
+                  scope.osd.destroy();
+                  scope.osd = null;
+                  opts = angular.extend({}, scope.options, {
+                    id: "openseadragon-" + Math.random(),
+                    element: element[0],
+                  });
+                  scope.osd = OpenSeadragon(opts);
+                })
                 //Create a wrapper
                 var wrapper = {
                     setFullScreen: function (fullScreen) {
@@ -57,7 +65,6 @@
                 if (attrs.name) {
                     //Make the OSD available to parent scope
                     scope.$parent[attrs.name] = wrapper;
-
                     //Define event handlers
                     zoomHandler = function (e) {
                         scope.$apply(function () {
@@ -130,7 +137,7 @@
 
                         //Destroy mouse handler
                         scope.mouse.destroy();
-
+                        optionsWatcher();
                         //Remove event handlers
                         scope.osd.removeHandler("zoom", zoomHandler);
                         scope.osd.removeHandler("update-viewport", updateViewportHandler);
