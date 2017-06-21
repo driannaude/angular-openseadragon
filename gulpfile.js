@@ -2,6 +2,9 @@ var gulp = require('gulp');
 var server = require('gulp-server-livereload');
 var watch = require('gulp-watch');
 var runSequence = require('run-sequence');
+var uglify = require('gulp-uglify');
+var pump = require('pump');
+var rename = require('gulp-rename');
 
 let config = {
   host: '0.0.0.0',
@@ -9,8 +12,19 @@ let config = {
 };
 
 gulp.task('build', function() {
-  gulp.src(['./src/**/*.js', './example/*'])
+  gulp.src(['./dist/**/*.js', './example/*'])
     .pipe(gulp.dest('./build'))
+});
+
+gulp.task('compress', function (cb) {
+  pump([
+        gulp.src('src/*.js'),
+        uglify(),
+        rename({ suffix: '.min' }),
+        gulp.dest('dist')
+    ],
+    cb
+  );
 });
 
 gulp.task('watch', function() {
@@ -34,6 +48,7 @@ gulp.task('server', function() {
 
 gulp.task('serve', function(cb) {
   runSequence(
+    'compress',
     'build',
     'server',
     'watch',

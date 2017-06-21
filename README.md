@@ -1,16 +1,36 @@
 ng-openseadragon
 =====================
 
-Angular module for [OpenSeadragon](http://openseadragon.github.io/) that exposes more APIs and bi-directional binding for tile sources/
+Angular module for [OpenSeadragon](http://openseadragon.github.io/) that exposes more API calls from OSD and bi-directional binding for tile sources.
 
 ##Installation
-Installation can be done via NPM.
+
+Installation can be done via NPM (recommended)
 ```bash
 $ npm install --save ng-openseadragon
 ```
 
+Alternatively you can clone this repository into your project
+```bash
+# Using ssh:
+$ git clone git@github.com:driannaude/ng-openseadragon.git
+
+# Using https:
+$ git clone https://github.com/driannaude/ng-openseadragon.git
+```
+
 
 ## Usage
+
+Include the library in your `index.html` at the close of the `body` tag:
+
+```html
+    ...
+    <script type="text/javascript" src="/path/to/ng-openseadragon/dist/ng-openseadragon.min.js"></script>
+  </body>
+</html>
+```
+
 ### Model :
 ```html
 <seadragon options="options" />

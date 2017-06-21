@@ -1,2 +1,2 @@
-require('./src/angular-openseadragon');
+require('./dist/ng-openseadragon.min');
 module.exports = 'ngOpenseadragon';
